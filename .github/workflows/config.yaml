@@ -1,0 +1,11 @@
+globalProperties:
+  apiTests: false
+  modelTests: false  
+  apiDocs: false
+  modelDocs: false
+additionalProperties:
+  # structPrefix: true
+  hideGenerationTimestamp: true
+  packageName: connectwisesellapi
+  disallowAdditionalPropertiesIfNotPresent: false
+  enumClassPrefix: true

@@ -1,0 +1,3786 @@
+openapi: 3.0.1
+info:
+  description: Version 1.0
+  title: ConnectWiseSellService
+  version: "1.0"
+servers:
+- url: https://sellapi.quosalsell.com/
+paths:
+  /api/quotes/{quoteId}/customers:
+    get:
+      operationId: Get Quote Customers for Quote ID
+      parameters:
+      - in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/CustomerView"
+                type: array
+          description: OK
+      tags:
+      - QuoteCustomers
+  /api/quotes/{quoteId}/customers/{id}:
+    delete:
+      operationId: Delete Quote Customer for Quote Customer ID
+      parameters:
+      - in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: No Content
+      tags:
+      - QuoteCustomers
+    patch:
+      operationId: Patch Quote Customer for Quote Customer ID
+      parameters:
+      - in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json; version = 1.0:
+            schema:
+              $ref: "#/components/schemas/JsonPatchDocument[CustomerView]"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerView"
+          description: OK
+      tags:
+      - QuoteCustomers
+      x-codegen-request-body-name: patch
+    put:
+      operationId: Put Quote Customer for Quote Customer ID
+      parameters:
+      - in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json; version = 1.0:
+            schema:
+              $ref: "#/components/schemas/CustomerView"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerView"
+          description: OK
+      tags:
+      - QuoteCustomers
+      x-codegen-request-body-name: requestBody
+  /api/quoteItems:
+    get:
+      operationId: Get Quote Items
+      parameters:
+      - description: Set true for results from deleted or archived quotes. Set false
+          to omit records from deleted or archive quotes. Defaults to true.
+        in: query
+        name: showAllVersions
+        schema:
+          type: boolean
+      - description: Comma separated list of fields to return.
+        in: query
+        name: includeFields
+        schema:
+          type: string
+      - description: Conditional retrieve statements.
+        in: query
+        name: conditions
+        schema:
+          type: string
+      - description: Page of results to get. 1-index based.
+        in: query
+        name: page
+        schema:
+          format: int32
+          type: integer
+      - description: "Page size of results to get. Max size 1000, default 50."
+        in: query
+        name: pageSize
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/QuoteItemView"
+                type: array
+          description: OK
+      tags:
+      - QuoteItems
+    post:
+      operationId: Post Quote Item
+      requestBody:
+        content:
+          application/json; version = 1.0:
+            schema:
+              $ref: "#/components/schemas/QuoteItemView"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteItemView"
+          description: OK
+      tags:
+      - QuoteItems
+      x-codegen-request-body-name: post
+  /api/quoteItems/{id}:
+    delete:
+      operationId: Delete Quote Item by ID
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: No Content
+      tags:
+      - QuoteItems
+    get:
+      operationId: Get Quote Item by ID
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteItemView"
+          description: OK
+      tags:
+      - QuoteItems
+    patch:
+      operationId: Patch Quote Item by ID
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json; version = 1.0:
+            schema:
+              $ref: "#/components/schemas/JsonPatchDocument[QuoteItemView]"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteItemView"
+          description: OK
+      tags:
+      - QuoteItems
+      x-codegen-request-body-name: patch
+  /api/quotes:
+    get:
+      operationId: Get Quotes
+      parameters:
+      - description: Set true for results from deleted or archived quotes. Defaults
+          to false.
+        in: query
+        name: showAllVersions
+        schema:
+          type: boolean
+      - description: Comma separated list of fields to return.
+        in: query
+        name: includeFields
+        schema:
+          type: string
+      - description: Conditional retrieve statements.
+        in: query
+        name: conditions
+        schema:
+          type: string
+      - description: Page of results to get. 1-index based.
+        in: query
+        name: page
+        schema:
+          format: int32
+          type: integer
+      - description: "Page size of results to get. Max size 1000, default 50."
+        in: query
+        name: pageSize
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/QuoteView"
+                type: array
+          description: OK
+      tags:
+      - Quotes
+  /api/quotes/{id}:
+    delete:
+      operationId: Delete Quote by ID
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: No Content
+      tags:
+      - Quotes
+    get:
+      operationId: Get Quote by ID
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteView"
+          description: OK
+      tags:
+      - Quotes
+    patch:
+      operationId: Patch Quote by ID
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json; version = 1.0:
+            schema:
+              $ref: "#/components/schemas/JsonPatchDocument[QuoteView]"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteView"
+          description: OK
+      tags:
+      - Quotes
+      x-codegen-request-body-name: patch
+  /api/quotes/{quoteNumber}/versions:
+    get:
+      operationId: Get Quotes by Quote Number
+      parameters:
+      - in: path
+        name: quoteNumber
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/QuoteView"
+                type: array
+          description: OK
+      tags:
+      - Quotes
+  /api/quotes/{quoteNumber}/versions/latest:
+    get:
+      operationId: Get Latest Version of Quote by Quote Number
+      parameters:
+      - in: path
+        name: quoteNumber
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteView"
+          description: OK
+      tags:
+      - Quotes
+  /api/quotes/{quoteNumber}/versions/{quoteVersion}:
+    delete:
+      operationId: Delete Quote by Number and Version
+      parameters:
+      - in: path
+        name: quoteNumber
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: quoteVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "204":
+          content: {}
+          description: No Content
+      tags:
+      - Quotes
+    get:
+      operationId: Get Quote by Quote Number and Version
+      parameters:
+      - in: path
+        name: quoteNumber
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: quoteVersion
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteView"
+          description: OK
+      tags:
+      - Quotes
+  /api/quotes/copyById/{id}:
+    post:
+      description: "NOTE: Also copies tabs, items and quote customers."
+      operationId: Copy Quote
+      parameters:
+      - description: Quote or template ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteView"
+          description: OK
+      tags:
+      - Quotes
+  /api/quoteTabs:
+    get:
+      operationId: Get Quote Tabs
+      parameters:
+      - description: Set true for results from deleted or archived quotes. Set false
+          to omit records from deleted or archive quotes. Defaults to true.
+        in: query
+        name: showAllVersions
+        schema:
+          type: boolean
+      - description: Comma separated list of fields to return.
+        in: query
+        name: includeFields
+        schema:
+          type: string
+      - description: Conditional retrieve statements.
+        in: query
+        name: conditions
+        schema:
+          type: string
+      - description: Page of results to get. 1-index based.
+        in: query
+        name: page
+        schema:
+          format: int32
+          type: integer
+      - description: "Page size of results to get. Max size 1000, default 50."
+        in: query
+        name: pageSize
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/QuoteTabView"
+                type: array
+          description: OK
+      tags:
+      - QuoteTabs
+  /api/quoteTabs/{id}/quoteItems:
+    get:
+      operationId: Get Quote Items by Tab Id
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/QuoteItemView"
+                type: array
+          description: OK
+      tags:
+      - QuoteTabs
+  /api/quotes/{quoteId}/quoteTerms:
+    get:
+      operationId: Get Quote Terms
+      parameters:
+      - in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+      - description: Comma separated list of fields to return.
+        in: query
+        name: includeFields
+        schema:
+          type: string
+      - description: Conditional retrieve statements.
+        in: query
+        name: conditions
+        schema:
+          type: string
+      - description: Page of results to get. 1-index based.
+        in: query
+        name: page
+        schema:
+          format: int32
+          type: integer
+      - description: "Page size of results to get. Max size 1000, default 50."
+        in: query
+        name: pageSize
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/QuoteTermView"
+                type: array
+          description: OK
+      tags:
+      - QuoteTerms
+    post:
+      operationId: Add Quote Term
+      parameters:
+      - in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json; version = 1.0:
+            schema:
+              $ref: "#/components/schemas/QuoteTermView"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteTermView"
+          description: OK
+      tags:
+      - QuoteTerms
+      x-codegen-request-body-name: requestBody
+  /api/quotes/{quoteId}/quoteTerms/{id}:
+    delete:
+      operationId: Delete Quote Term
+      parameters:
+      - in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: No Content
+      tags:
+      - QuoteTerms
+    patch:
+      operationId: Update Quote Term
+      parameters:
+      - in: path
+        name: quoteId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json; version = 1.0:
+            schema:
+              $ref: "#/components/schemas/JsonPatchDocument[QuoteTermView]"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteTermView"
+          description: OK
+      tags:
+      - QuoteTerms
+      x-codegen-request-body-name: patch
+  /api/recurringRevenues:
+    get:
+      operationId: Get Recurring Revenues
+      parameters:
+      - description: Comma separated list of fields to return.
+        in: query
+        name: includeFields
+        schema:
+          type: string
+      - description: Conditional retrieve statements.
+        in: query
+        name: conditions
+        schema:
+          type: string
+      - description: Page of results to get. 1-index based.
+        in: query
+        name: page
+        schema:
+          format: int32
+          type: integer
+      - description: "Page size of results to get. Max size 1000, default 50."
+        in: query
+        name: pageSize
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/RecurringRevenueView"
+                type: array
+          description: OK
+      tags:
+      - RecurringRevenue
+  /api/taxCodes:
+    get:
+      operationId: Get Tax Codes
+      parameters:
+      - description: Comma separated list of fields to return.
+        in: query
+        name: includeFields
+        schema:
+          type: string
+      - description: Conditional retrieve statements.
+        in: query
+        name: conditions
+        schema:
+          type: string
+      - description: Page of results to get. 1-index based.
+        in: query
+        name: page
+        schema:
+          format: int32
+          type: integer
+      - description: "Page size of results to get. Max size 1000, default 50."
+        in: query
+        name: pageSize
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/TaxCodeView"
+                type: array
+          description: OK
+      tags:
+      - TaxCode
+  /api/templates:
+    get:
+      operationId: Get Templates
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/QuoteView"
+                type: array
+          description: OK
+      tags:
+      - Templates
+  /settings/user:
+    get:
+      operationId: Get User
+      parameters:
+      - description: Comma separated list of fields to return.
+        in: query
+        name: includeFields
+        schema:
+          type: string
+      - description: Conditional retrieve statements.
+        in: query
+        name: conditions
+        schema:
+          type: string
+      - description: Page of results to get. 1-index based.
+        in: query
+        name: page
+        schema:
+          format: int32
+          type: integer
+      - description: "Page size of results to get. Max size 1000, default 50."
+        in: query
+        name: pageSize
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/UserView"
+                type: array
+          description: OK
+      tags:
+      - User
+  /settings/user/{id}:
+    patch:
+      operationId: Patch User by ID
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json; version = 1.0:
+            schema:
+              $ref: "#/components/schemas/JsonPatchDocument[UserView]"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserView"
+          description: OK
+      tags:
+      - User
+      x-codegen-request-body-name: patch
+components:
+  schemas:
+    CustomerView:
+      example:
+        country: country
+        lastName: lastName
+        accountName: accountName
+        city: city
+        jobTitle: jobTitle
+        postalCode: postalCode
+        description: description
+        priceLevel: priceLevel
+        title: title
+        customerType: customerType
+        emailAddress: emailAddress
+        quote:
+          _info:
+            key: _info
+          name: name
+          id: id
+        locationId: locationId
+        relationshipSinceDate: 2000-01-23T04:56:07.000+00:00
+        taxExternalReferenceId: taxExternalReferenceId
+        id: id
+        state: state
+        modifyDate: 2000-01-23T04:56:07.000+00:00
+        address2: address2
+        address1: address1
+        integrationId: integrationId
+        accountNumber: accountNumber
+        userId: userId
+        customerSourceId: customerSourceId
+        firstName: firstName
+        companyId: companyId
+        mobilePhone: mobilePhone
+        dayPhone: dayPhone
+        priceLevelName: priceLevelName
+        customerSource: customerSource
+        customCustomerString1: customCustomerString1
+        customCustomerString3: customCustomerString3
+        customCustomerString2: customCustomerString2
+      properties:
+        accountName:
+          type: string
+        accountNumber:
+          type: string
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        companyId:
+          type: string
+        country:
+          type: string
+        customCustomerString1:
+          type: string
+        customCustomerString2:
+          type: string
+        customCustomerString3:
+          type: string
+        customerSource:
+          type: string
+        customerSourceId:
+          type: string
+        customerType:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        dayPhone:
+          type: string
+        description:
+          type: string
+        emailAddress:
+          type: string
+        firstName:
+          type: string
+        id:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        integrationId:
+          type: string
+        jobTitle:
+          type: string
+        lastName:
+          type: string
+        locationId:
+          type: string
+        mobilePhone:
+          type: string
+        modifyDate:
+          description: This field is Read Only.
+          format: date-time
+          readOnly: true
+          type: string
+        postalCode:
+          type: string
+        priceLevel:
+          type: string
+        priceLevelName:
+          type: string
+        quote:
+          $ref: "#/components/schemas/ReferenceLink"
+        relationshipSinceDate:
+          format: date-time
+          type: string
+        state:
+          type: string
+        taxExternalReferenceId:
+          type: string
+        title:
+          type: string
+        userId:
+          type: string
+      type: object
+    ReferenceLink:
+      example:
+        _info:
+          key: _info
+        name: name
+        id: id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        _info:
+          additionalProperties:
+            type: string
+          type: object
+      type: object
+    JsonPatchDocument[CustomerView]:
+      example:
+      - value: New Value
+        path: /property
+        op: replace
+      - value: New Value
+        path: /property
+        op: add
+      - path: /property
+        op: remove
+      properties:
+        operations:
+          description: This field is Read Only.
+          items:
+            $ref: "#/components/schemas/Operation[CustomerView]"
+          readOnly: true
+          type: array
+      type: object
+    Operation[CustomerView]:
+      properties:
+        value:
+          properties: {}
+          type: object
+        path:
+          type: string
+        op:
+          type: string
+        from:
+          type: string
+      type: object
+    QuoteItemsQueryModel:
+      properties:
+        showAllVersions:
+          description: Set true for results from deleted or archived quotes. Set false
+            to omit records from deleted or archive quotes. Defaults to true.
+          type: boolean
+        includeFields:
+          description: Comma separated list of fields to return.
+          type: string
+        conditions:
+          description: Conditional retrieve statements.
+          type: string
+        page:
+          description: Page of results to get. 1-index based.
+          format: int32
+          type: integer
+        pageSize:
+          description: "Page size of results to get. Max size 1000, default 50."
+          format: int32
+          type: integer
+      type: object
+    QuoteItemView:
+      example:
+        itemNotes: itemNotes
+        upcNumber: upcNumber
+        isPromotion: true
+        discountAmount: 9.301444243932576
+        taxConverted: 7.933506881737151
+        isModTagModified: true
+        factorQtyFixed: 1.4894159098541704
+        sourceManufacturerId: sourceManufacturerId
+        crmReference: crmReference
+        approvalPriceMinimum: 6.027456183070403
+        quote:
+          _info:
+            key: _info
+          name: name
+          id: id
+        factorQtyMultiplier: 6.84685269835264
+        factorItemMfp: factorItemMfp
+        basePrice: 1.4658129805029452
+        isBundleHeader: true
+        pdfAttachment: pdfAttachment
+        warehouse: warehouse
+        externalReference: externalReference
+        isRecurringTaxable: true
+        sortOrder: 4
+        zCustomBool1: true
+        zCustomBool2: true
+        zCustomBool3: true
+        zCustomBool4: true
+        poNumber: poNumber
+        zCustomBool9: true
+        idRecurringRevenue: idRecurringRevenue
+        zCustomBool5: true
+        optionGroup: optionGroup
+        zCustomBool6: true
+        zCustomBool7: true
+        zCustomBool8: true
+        etilizeSerializedAttributes: etilizeSerializedAttributes
+        posDescription: posDescription
+        recurringCost: 3.0576100241049344
+        isSelected: true
+        isBundleComponent: true
+        localPriceFormula: localPriceFormula
+        poStatus: poStatus
+        zCustomString10: zCustomString10
+        zCustomString11: zCustomString11
+        zCustomString12: zCustomString12
+        zCustomString13: zCustomString13
+        zCustomString14: zCustomString14
+        svcSpread: 9.702963800023566
+        zCustomString15: zCustomString15
+        isOverrideQty: true
+        zCustomString16: zCustomString16
+        itemNotesHtml: itemNotesHtml
+        zCustomString17: zCustomString17
+        zCustomString18: zCustomString18
+        zCustomString19: zCustomString19
+        enforceItemModTags: true
+        quosalDescription: quosalDescription
+        userId: userId
+        groupingCode: groupingCode
+        rampPeriods: 8
+        zCustomString20: zCustomString20
+        zCustomString21: zCustomString21
+        gsaPrice: 4.965218492984954
+        gstConverted: 9.965781217890562
+        isMetadataItem: true
+        zCustomString22: zCustomString22
+        zCustomString23: zCustomString23
+        zCustomString24: zCustomString24
+        zCustomString25: zCustomString25
+        itemNumber: itemNumber
+        recurringExtendedSuggestedPrice: 5.533258397034986
+        keywords: keywords
+        stateGovPrice: 9.132027271330688
+        overridePrice: 6.704019297950036
+        zCustomNotes9: zCustomNotes9
+        zCustomNotes8: zCustomNotes8
+        zCustomNotes7: zCustomNotes7
+        source: source
+        zCustomNotes6: zCustomNotes6
+        invoiceGroupingId: 3
+        extendedPrice: 7.386281948385884
+        configId: configId
+        cwClass: cwClass
+        zCustomDecimal10: 0.43431398824148815
+        startingCost: 7.260521264802104
+        defermentPeriods: 2
+        isOptional: true
+        uomFactor: 6
+        taxCode: taxCode
+        recurringSuggestedPrice: 6.628464275087742
+        manufacturerPartNumber: manufacturerPartNumber
+        promotionComment: promotionComment
+        recurringCostModifier: recurringCostModifier
+        idQuoteTabs: idQuoteTabs
+        recurringTax: 4.258773108174356
+        isSold: true
+        onOrder: 5
+        rebateComment: rebateComment
+        approvalOnChange: true
+        quoteItemPrice: 4.652396432933246
+        quoteName: quoteName
+        longDescription: longDescription
+        netCost: 1.284659006116532
+        replacementSku: replacementSku
+        zCustomDecimal9: 1.8268702177058116
+        zCustomDecimal8: 9.254183946267839
+        zCustomDecimal7: 8.863729185622827
+        zCustomDecimal6: 4.573936264232251
+        warehouseCode: warehouseCode
+        productCategory: productCategory
+        pst: 0.8851374739011653
+        pstRate: 6.519180951018382
+        zCustomDecimal5: 6.623518433804886
+        zCustomDecimal4: 8.28965939814297
+        vendorPartNumber: vendorPartNumber
+        zCustomDecimal3: 1.7325933120207193
+        zCustomDecimal2: 2.9409642974827896
+        recurringTotal: 1.041444916118296
+        zCustomDecimal1: 3.901545264248647
+        sourceManufacturerName: sourceManufacturerName
+        owner: owner
+        quoteTab:
+          _info:
+            key: _info
+          name: name
+          id: id
+        zCustomDate1: 2000-01-23T04:56:07.000+00:00
+        federalGovPrice: 7.457744773683766
+        zCustomDate2: 2000-01-23T04:56:07.000+00:00
+        recurringPrice: 4.078845849666752
+        isTaxable: true
+        discountAmountConverted: 3.616076749251911
+        sourceSelectionDetails: sourceSelectionDetails
+        zCustomString8: zCustomString8
+        zCustomString9: zCustomString9
+        zCustomString4: zCustomString4
+        zCustomString5: zCustomString5
+        zCustomString6: zCustomString6
+        zCustomString7: zCustomString7
+        totalWeight: 4.86315908102884
+        zCustomString1: zCustomString1
+        zCustomBool10: true
+        zCustomString2: zCustomString2
+        zCustomString3: zCustomString3
+        disableRemaps: true
+        recurringExtendedCost: 7.04836565559697
+        discount: 7.061401241503109
+        gst: 5.025004791520295
+        priceConverted: 7.143538047012306
+        sourceVendorName: sourceVendorName
+        recurringCalculatedPriceModifier: recurringCalculatedPriceModifier
+        extendedSuggestedPrice: 1.0246457001441578
+        rebateExpirationDate: 2000-01-23T04:56:07.000+00:00
+        uom: uom
+        uop: uop
+        id: id
+        isRebate: true
+        period: period
+        productClass: productClass
+        isRampable: true
+        optionLocked: true
+        approvalContentHash: approvalContentHash
+        isPrinted: true
+        parentQuoteItem: parentQuoteItem
+        packageQty: 3.0937452626664474
+        suggestedPrice: 0.8774076871421566
+        dimension1: dimension1
+        extendedPriceConverted: 1.2315135367772556
+        dimension4: dimension4
+        dimension5: dimension5
+        dimension2: dimension2
+        dimension3: dimension3
+        etilizeProductId: 2.027123023002322
+        isTotalsIncluded: true
+        isProtectedPrice: true
+        zCustomNotes10: zCustomNotes10
+        uomWeight: 8.251625748923757
+        isProtectedItem: true
+        recurringBasePrice: 3.0205796992916243
+        productSubCategory: productSubCategory
+        onHandWarehouse2: 6
+        onHandWarehouse1: 6
+        gstRate: 9.369310271410669
+        quoteReadableId: quoteReadableId
+        isHiddenItem: true
+        zCustomNotes1: zCustomNotes1
+        onHand: 2
+        zCustomNotes5: zCustomNotes5
+        zCustomNotes4: zCustomNotes4
+        zCustomNotes3: zCustomNotes3
+        zCustomNotes2: zCustomNotes2
+        sourceVendorId: sourceVendorId
+        itemHeight: 8.762042012749001
+        approvalMarginMinimum: 0.8008281904610115
+        priceModifier: priceModifier
+        recurringPst: 0.2025324113236393
+        promotionExpirationDate: 2000-01-23T04:56:07.000+00:00
+        pstConverted: 7.058770351582356
+        configPosition: 5
+        lineType: lineType
+        itemWidth: 6.438423552598547
+        uopFactor: 4
+        extendedCost: 4.145608029883936
+        idQuote: idQuote
+        thumbnail: thumbnail
+        markup: 6.965117697638846
+        modifyDate: 2000-01-23T04:56:07.000+00:00
+        recurringAmount: 7.740351818741173
+        zCustomText1: zCustomText1
+        tax: 0.5199002018724985
+        itemLength: 9.018348186070783
+        shortDescription: shortDescription
+        taxRate: 5.507386964179881
+        isShowPrice: true
+        isDeferrable: true
+        costModifier: costModifier
+        marketingInformation: marketingInformation
+        cwAgreement: cwAgreement
+        itemCube: 6.683562403749608
+        recurringGst: 3.2588565619047607
+        recurringPriceModifier: recurringPriceModifier
+        productType: productType
+        overridePriceModifier: overridePriceModifier
+        cost: 5.637376656633329
+        quantity: 0.10263654006109402
+        packagePrice: 3.353193347011243
+        overridePackageDetails: true
+        isPhaseItem: true
+        externalQuoteNumber: externalQuoteNumber
+        quosalPurchasingNotes: quosalPurchasingNotes
+        grossMargin: 1.1730742509559433
+      properties:
+        id:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        idQuote:
+          type: string
+        approvalContentHash:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        approvalMarginMinimum:
+          format: double
+          type: number
+        approvalOnChange:
+          type: boolean
+        approvalPriceMinimum:
+          format: double
+          type: number
+        basePrice:
+          format: double
+          type: number
+        configId:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        configPosition:
+          description: This field is Read Only.
+          format: int32
+          readOnly: true
+          type: integer
+        cost:
+          format: double
+          type: number
+        costModifier:
+          type: string
+        crmReference:
+          type: string
+        cwAgreement:
+          type: string
+        cwClass:
+          type: string
+        defermentPeriods:
+          format: int32
+          type: integer
+        dimension1:
+          type: string
+        dimension2:
+          type: string
+        dimension3:
+          type: string
+        dimension4:
+          type: string
+        dimension5:
+          type: string
+        disableRemaps:
+          type: boolean
+        discount:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        discountAmount:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        discountAmountConverted:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        enforceItemModTags:
+          type: boolean
+        etilizeProductId:
+          format: double
+          type: number
+        etilizeSerializedAttributes:
+          type: string
+        extendedCost:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        extendedPrice:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        extendedPriceConverted:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        extendedSuggestedPrice:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        externalQuoteNumber:
+          type: string
+        externalReference:
+          type: string
+        factorItemMfp:
+          type: string
+        factorQtyFixed:
+          format: double
+          type: number
+        factorQtyMultiplier:
+          format: double
+          type: number
+        federalGovPrice:
+          format: double
+          type: number
+        grossMargin:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        groupingCode:
+          type: string
+        gsaPrice:
+          format: double
+          type: number
+        gst:
+          format: double
+          type: number
+        gstConverted:
+          format: double
+          type: number
+        gstRate:
+          format: double
+          type: number
+        idQuoteTabs:
+          type: string
+        idRecurringRevenue:
+          type: string
+        isBundleComponent:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isBundleHeader:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isDeferrable:
+          type: boolean
+        isHiddenItem:
+          type: boolean
+        isMetadataItem:
+          type: boolean
+        isModTagModified:
+          type: boolean
+        isOptional:
+          type: boolean
+        isOverrideQty:
+          type: boolean
+        isPhaseItem:
+          type: boolean
+        isPrinted:
+          type: boolean
+        isPromotion:
+          type: boolean
+        isProtectedItem:
+          type: boolean
+        isProtectedPrice:
+          type: boolean
+        isRampable:
+          type: boolean
+        isRebate:
+          type: boolean
+        isRecurringTaxable:
+          type: boolean
+        isSelected:
+          type: boolean
+        isShowPrice:
+          type: boolean
+        isSold:
+          type: boolean
+        isTaxable:
+          type: boolean
+        isTotalsIncluded:
+          type: boolean
+        itemCube:
+          format: double
+          type: number
+        itemHeight:
+          format: double
+          type: number
+        itemLength:
+          format: double
+          type: number
+        itemNotes:
+          type: string
+        itemNotesHtml:
+          type: string
+        itemNumber:
+          type: string
+        itemWidth:
+          format: double
+          type: number
+        invoiceGroupingId:
+          format: int32
+          type: integer
+        keywords:
+          type: string
+        lineType:
+          type: string
+        localPriceFormula:
+          type: string
+        longDescription:
+          type: string
+        manufacturerPartNumber:
+          type: string
+        marketingInformation:
+          type: string
+        markup:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        modifyDate:
+          description: This field is Read Only.
+          format: date-time
+          readOnly: true
+          type: string
+        netCost:
+          format: double
+          type: number
+        onHand:
+          format: int32
+          type: integer
+        onHandWarehouse1:
+          format: int32
+          type: integer
+        onHandWarehouse2:
+          format: int32
+          type: integer
+        onOrder:
+          format: int32
+          type: integer
+        optionGroup:
+          type: string
+        optionLocked:
+          type: boolean
+        overridePackageDetails:
+          type: boolean
+        overridePrice:
+          format: double
+          type: number
+        overridePriceModifier:
+          type: string
+        owner:
+          type: string
+        packagePrice:
+          format: double
+          type: number
+        packageQty:
+          format: double
+          type: number
+        parentQuoteItem:
+          type: string
+        pdfAttachment:
+          type: string
+        period:
+          type: string
+        poNumber:
+          type: string
+        posDescription:
+          type: string
+        poStatus:
+          type: string
+        priceConverted:
+          format: double
+          type: number
+        priceModifier:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        productCategory:
+          type: string
+        productClass:
+          type: string
+        productSubCategory:
+          type: string
+        productType:
+          type: string
+        promotionComment:
+          type: string
+        promotionExpirationDate:
+          format: date-time
+          type: string
+        pst:
+          format: double
+          type: number
+        pstConverted:
+          format: double
+          type: number
+        pstRate:
+          format: double
+          type: number
+        quantity:
+          format: double
+          type: number
+        quosalDescription:
+          type: string
+        quosalPurchasingNotes:
+          type: string
+        quote:
+          $ref: "#/components/schemas/ReferenceLink"
+        quoteTab:
+          $ref: "#/components/schemas/ReferenceLink"
+        quoteItemPrice:
+          format: double
+          type: number
+        quoteName:
+          type: string
+        quoteReadableId:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        rampPeriods:
+          format: int32
+          type: integer
+        rebateComment:
+          type: string
+        rebateExpirationDate:
+          format: date-time
+          type: string
+        recurringAmount:
+          format: double
+          type: number
+        recurringBasePrice:
+          format: double
+          type: number
+        recurringCalculatedPriceModifier:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        recurringCost:
+          format: double
+          type: number
+        recurringCostModifier:
+          type: string
+        recurringExtendedCost:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        recurringExtendedSuggestedPrice:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        recurringGst:
+          format: double
+          type: number
+        recurringPrice:
+          format: double
+          type: number
+        recurringPriceModifier:
+          type: string
+        recurringPst:
+          format: double
+          type: number
+        recurringSuggestedPrice:
+          format: double
+          type: number
+        recurringTax:
+          format: double
+          type: number
+        recurringTotal:
+          format: double
+          type: number
+        replacementSku:
+          type: string
+        shortDescription:
+          type: string
+        sortOrder:
+          description: This field is Read Only.
+          format: int32
+          readOnly: true
+          type: integer
+        source:
+          type: string
+        sourceManufacturerId:
+          type: string
+        sourceManufacturerName:
+          type: string
+        sourceSelectionDetails:
+          type: string
+        sourceVendorId:
+          type: string
+        sourceVendorName:
+          type: string
+        startingCost:
+          format: double
+          type: number
+        stateGovPrice:
+          format: double
+          type: number
+        suggestedPrice:
+          format: double
+          type: number
+        svcSpread:
+          format: double
+          type: number
+        tax:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        taxCode:
+          type: string
+        taxConverted:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        taxRate:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        thumbnail:
+          format: byte
+          pattern: "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+          type: string
+        totalWeight:
+          format: double
+          type: number
+        uom:
+          type: string
+        uomFactor:
+          format: int32
+          type: integer
+        uomWeight:
+          format: double
+          type: number
+        uop:
+          type: string
+        uopFactor:
+          format: int32
+          type: integer
+        upcNumber:
+          type: string
+        userId:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        vendorPartNumber:
+          type: string
+        warehouse:
+          type: string
+        warehouseCode:
+          type: string
+        zCustomBool1:
+          type: boolean
+        zCustomBool10:
+          type: boolean
+        zCustomBool2:
+          type: boolean
+        zCustomBool3:
+          type: boolean
+        zCustomBool4:
+          type: boolean
+        zCustomBool5:
+          type: boolean
+        zCustomBool6:
+          type: boolean
+        zCustomBool7:
+          type: boolean
+        zCustomBool8:
+          type: boolean
+        zCustomBool9:
+          type: boolean
+        zCustomDate1:
+          format: date-time
+          type: string
+        zCustomDate2:
+          format: date-time
+          type: string
+        zCustomDecimal1:
+          format: double
+          type: number
+        zCustomDecimal10:
+          format: double
+          type: number
+        zCustomDecimal2:
+          format: double
+          type: number
+        zCustomDecimal3:
+          format: double
+          type: number
+        zCustomDecimal4:
+          format: double
+          type: number
+        zCustomDecimal5:
+          format: double
+          type: number
+        zCustomDecimal6:
+          format: double
+          type: number
+        zCustomDecimal7:
+          format: double
+          type: number
+        zCustomDecimal8:
+          format: double
+          type: number
+        zCustomDecimal9:
+          format: double
+          type: number
+        zCustomNotes1:
+          type: string
+        zCustomNotes10:
+          type: string
+        zCustomNotes2:
+          type: string
+        zCustomNotes3:
+          type: string
+        zCustomNotes4:
+          type: string
+        zCustomNotes5:
+          type: string
+        zCustomNotes6:
+          type: string
+        zCustomNotes7:
+          type: string
+        zCustomNotes8:
+          type: string
+        zCustomNotes9:
+          type: string
+        zCustomString1:
+          type: string
+        zCustomString10:
+          type: string
+        zCustomString11:
+          type: string
+        zCustomString12:
+          type: string
+        zCustomString13:
+          type: string
+        zCustomString14:
+          type: string
+        zCustomString15:
+          type: string
+        zCustomString16:
+          type: string
+        zCustomString17:
+          type: string
+        zCustomString18:
+          type: string
+        zCustomString19:
+          type: string
+        zCustomString2:
+          type: string
+        zCustomString20:
+          type: string
+        zCustomString21:
+          type: string
+        zCustomString22:
+          type: string
+        zCustomString23:
+          type: string
+        zCustomString24:
+          type: string
+        zCustomString25:
+          type: string
+        zCustomString3:
+          type: string
+        zCustomString4:
+          type: string
+        zCustomString5:
+          type: string
+        zCustomString6:
+          type: string
+        zCustomString7:
+          type: string
+        zCustomString8:
+          type: string
+        zCustomString9:
+          type: string
+        zCustomText1:
+          type: string
+      type: object
+    JsonPatchDocument[QuoteItemView]:
+      example:
+      - value: New Value
+        path: /property
+        op: replace
+      - value: New Value
+        path: /property
+        op: add
+      - path: /property
+        op: remove
+      properties:
+        operations:
+          description: This field is Read Only.
+          items:
+            $ref: "#/components/schemas/Operation[QuoteItemView]"
+          readOnly: true
+          type: array
+      type: object
+    Operation[QuoteItemView]:
+      properties:
+        value:
+          properties: {}
+          type: object
+        path:
+          type: string
+        op:
+          type: string
+        from:
+          type: string
+      type: object
+    QuoteQueryModel:
+      properties:
+        showAllVersions:
+          description: Set true for results from deleted or archived quotes. Defaults
+            to false.
+          type: boolean
+        includeFields:
+          description: Comma separated list of fields to return.
+          type: string
+        conditions:
+          description: Conditional retrieve statements.
+          type: string
+        page:
+          description: Page of results to get. 1-index based.
+          format: int32
+          type: integer
+        pageSize:
+          description: "Page size of results to get. Max size 1000, default 50."
+          format: int32
+          type: integer
+      type: object
+    QuoteView:
+      example:
+        recurringSuggestedDiscountAmount: 5.944895607614016
+        discountAmount: 7.061401241503109
+        approvalReason: approvalReason
+        printPackageItemPrice: true
+        approvalQuoteForm: approvalQuoteForm
+        zCustomQuoteBool10: true
+        crmOpportunityId: crmOpportunityId
+        insideRep: insideRep
+        zCustomQuoteBool3: true
+        invoicePostStatus: invoicePostStatus
+        zCustomQuoteBool4: true
+        zCustomQuoteBool5: true
+        zCustomQuoteBool6: true
+        zCustomQuoteBool7: true
+        zCustomQuoteBool8: true
+        targetDate: 2000-01-23T04:56:07.000+00:00
+        zCustomQuoteBool9: true
+        orderPorterTheme: orderPorterTheme
+        quoteNumber: 0
+        zCustomQuoteBool1: true
+        zCustomQuoteBool2: true
+        quickbooksTemplate: quickbooksTemplate
+        isManagerApproved: true
+        subtotal: 6.519180951018382
+        isAccepted: true
+        forceManagerApprovalScript: true
+        promiseDateChangesCount: 9
+        invoicePostUser: invoicePostUser
+        lostReason: lostReason
+        recurringOptionalAmount: 2.8841621266687802
+        versionComment: versionComment
+        isSent: true
+        quoteType: quoteType
+        shippingSubtotal: 0.8851374739011653
+        orderPorterPreviewPicture:
+          _info:
+            key: _info
+          name: name
+          id: id
+        shippingTax: 7.058770351582356
+        recurringCost: 3.5571952270680973
+        locationId: locationId
+        selectedTermsTotal: 7.143538047012306
+        requestDate: 2000-01-23T04:56:07.000+00:00
+        orderPorterFullPaymentAllowed: true
+        orderPorterShowItemOptionalCheckbox: true
+        approvalMargin: 5.962133916683182
+        invoicePostDate: 2000-01-23T04:56:07.000+00:00
+        orderPorterPasscode: orderPorterPasscode
+        orderPorterSignedIp: orderPorterSignedIp
+        salesForceDefaultRecurringTermType: salesForceDefaultRecurringTermType
+        quoteVersion: 6
+        defaultSuccessListProfile: defaultSuccessListProfile
+        gstConverted: 4.145608029883936
+        keywords: keywords
+        createNotes: createNotes
+        zCustomQuoteString12: zCustomQuoteString12
+        zCustomQuoteString11: zCustomQuoteString11
+        zCustomQuoteString10: zCustomQuoteString10
+        zCustomQuoteString15: zCustomQuoteString15
+        zCustomQuoteString14: zCustomQuoteString14
+        zCustomQuoteString13: zCustomQuoteString13
+        deliveredDate: 2000-01-23T04:56:07.000+00:00
+        isQuoteDemand: true
+        masterAgreement: masterAgreement
+        greatAmericaDefaultRateCard: greatAmericaDefaultRateCard
+        zCustomQuoteDate1: 2000-01-23T04:56:07.000+00:00
+        zCustomQuoteDate2: 2000-01-23T04:56:07.000+00:00
+        winForm: winForm
+        contactName: contactName
+        taxCode: taxCode
+        defaultReportList: defaultReportList
+        approvedDate: 2000-01-23T04:56:07.000+00:00
+        orderPorterGroup: orderPorterGroup
+        publishNumber: 8
+        recurringTax: 3.353193347011243
+        orderPorterSignedDate: 2000-01-23T04:56:07.000+00:00
+        name: name
+        autoTaskQuoteNumber: autoTaskQuoteNumber
+        longDescription: longDescription
+        promiseDate: 2000-01-23T04:56:07.000+00:00
+        showPackageItems: true
+        isLost: true
+        baseCurrency: baseCurrency
+        quoteStatus: quoteStatus
+        orderPorterShowQuantity: true
+        recurringSubtotal: 6.878052220127876
+        termsAndConditions: termsAndConditions
+        pst: 9.369310271410669
+        zCustomQuoteDecimal3: 9.702963800023566
+        zCustomQuoteDecimal2: 9.132027271330688
+        zCustomQuoteDecimal1: 3.0576100241049344
+        zCustomQuoteDecimal7: 4.86315908102884
+        zCustomQuoteDecimal6: 5.507386964179881
+        zCustomQuoteDecimal5: 7.933506881737151
+        zCustomQuoteDecimal4: 0.5199002018724985
+        quoteNotes: quoteNotes
+        zCustomQuoteDecimal9: 8.251625748923757
+        zCustomQuoteDecimal8: 6.073898085781152
+        recurringTotal: 3.0937452626664474
+        recurringSuggestedTotal: 6.704019297950036
+        approvedByUser: approvedByUser
+        expirationDate: 2000-01-23T04:56:07.000+00:00
+        approvalStatus: approvalStatus
+        orderPorterShowSignature: true
+        isArchive: true
+        contractEndDate: 2000-01-23T04:56:07.000+00:00
+        printPackageHeaderPrice: true
+        subtotalConverted: 0.10263654006109402
+        suggestedTotal: 8.969578798196912
+        wonOrLostDate: 2000-01-23T04:56:07.000+00:00
+        netSuiteSubsidiary: netSuiteSubsidiary
+        requestedBy: requestedBy
+        orderPorterInitialsSig: orderPorterInitialsSig
+        purchaseOrderNumber: purchaseOrderNumber
+        isRequestQuote: true
+        gst: 2.027123023002322
+        orderPorterShowTabOptionalCheckbox: true
+        showOrderPorterESign: true
+        peerReviewDocument: peerReviewDocument
+        orderPorterIsUploaded: true
+        id: id
+        defaultVideoList: defaultVideoList
+        zCustomQuoteDecimal10: 7.04836565559697
+        orderPorterPaymentMode: orderPorterPaymentMode
+        probability: 5.025004791520295
+        requiresApproval: true
+        netMargin: 1.2315135367772556
+        zCustomQuoteString1: zCustomQuoteString1
+        salesForceDefaultPriceList: salesForceDefaultPriceList
+        orderPorterVisits: 1
+        htmlAgreement: htmlAgreement
+        zCustomQuoteString7: zCustomQuoteString7
+        zCustomQuoteString6: zCustomQuoteString6
+        customerSignatureCapture:
+          _info:
+            key: _info
+          name: name
+          id: id
+        zCustomQuoteString9: zCustomQuoteString9
+        zCustomQuoteString8: zCustomQuoteString8
+        zCustomQuoteString3: zCustomQuoteString3
+        zCustomQuoteString2: zCustomQuoteString2
+        zCustomQuoteString5: zCustomQuoteString5
+        quoteCreator: quoteCreator
+        zCustomQuoteString4: zCustomQuoteString4
+        primaryRep: primaryRep
+        overrideRate: 4.965218492984954
+        defaultTermPeriods: 2
+        optionalAmount: 1.0246457001441578
+        sourceCampaignId: sourceCampaignId
+        salesForceDefaultOppType: salesForceDefaultOppType
+        isOrderPorterApproved: true
+        expectedCloseDate: 2000-01-23T04:56:07.000+00:00
+        requestId: requestId
+        htmlNotes2: htmlNotes2
+        htmlNotes1: htmlNotes1
+        showPackageHeader: true
+        isSuccessListDisabled: true
+        createDate: 2000-01-23T04:56:07.000+00:00
+        requiresNameChange: true
+        crmOpGroup: crmOpGroup
+        picture:
+          _info:
+            key: _info
+          name: name
+          id: id
+        orderPorterDownPaymentMinimum: 6.84685269835264
+        recurringPst: 6.778324963048013
+        recurringDiscountAmount: 6.965117697638846
+        pstConverted: 6.683562403749608
+        approvalAmount: 1.4658129805029452
+        includeZeroSuggestedInDiscount: true
+        originalQuoteId: originalQuoteId
+        orderPorterTemplate: orderPorterTemplate
+        grossMarginAmount: 3.616076749251911
+        markup: 7.386281948385884
+        modifyDate: 2000-01-23T04:56:07.000+00:00
+        contractStartDate: 2000-01-23T04:56:07.000+00:00
+        orderPorterHasFirstVisitOccurred: true
+        isTaxCalculated: true
+        tax: 7.740351818741173
+        orderPorterShowImage: true
+        shortDescription: shortDescription
+        orderPorterShowLineDetails: true
+        orderPorterFilteredIp: orderPorterFilteredIp
+        taxRate: 3.0205796992916243
+        orderPorterDownPaymentPercent: 7.457744773683766
+        orderPorterFirstVisitDate: 2000-01-23T04:56:07.000+00:00
+        peerReviewStatus: peerReviewStatus
+        suggestedDiscountAmount: 4.652396432933246
+        quotePreface: quotePreface
+        accountName: accountName
+        costChangesCount: 5
+        isRequestTemplate: true
+        approvalMode: approvalMode
+        recurringGst: 1.284659006116532
+        orderPorterEmailSignature: orderPorterEmailSignature
+        zCustomQuoteDecimal14: 0.2025324113236393
+        zCustomQuoteDecimal13: 4.078845849666752
+        zCustomQuoteDecimal12: 3.2588565619047607
+        zCustomQuoteDecimal11: 5.533258397034986
+        zCustomQuoteDecimal18: 4.678947989005849
+        zCustomQuoteDecimal17: 1.041444916118296
+        zCustomQuoteDecimal16: 4.258773108174356
+        zCustomQuoteDecimal15: 6.628464275087742
+        zCustomQuoteDecimal19: 7.260521264802104
+        optionalAmountConverted: 1.4894159098541704
+        masterAgreementNumber: masterAgreementNumber
+        approvalComment: approvalComment
+        quoteCost: 9.018348186070783
+        grossMargin: 9.301444243932576
+        quoteTotal: 6.438423552598547
+        zCustomQuoteDecimal20: 0.8774076871421566
+        externalReferenceQuoteDemandId: externalReferenceQuoteDemandId
+        customer:
+          _info:
+            key: _info
+          name: name
+          id: id
+      properties:
+        name:
+          type: string
+        quoteNumber:
+          format: int32
+          type: integer
+        quoteVersion:
+          format: int32
+          type: integer
+        id:
+          type: string
+        accountName:
+          type: string
+        approvalAmount:
+          format: double
+          type: number
+        approvalComment:
+          type: string
+        approvalMargin:
+          format: double
+          type: number
+        approvalMode:
+          type: string
+        approvalQuoteForm:
+          type: string
+        approvalReason:
+          type: string
+        approvalStatus:
+          type: string
+        approvedByUser:
+          type: string
+        approvedDate:
+          format: date-time
+          type: string
+        baseCurrency:
+          type: string
+        crmOpGroup:
+          type: string
+        contactName:
+          type: string
+        contractEndDate:
+          format: date-time
+          type: string
+        contractStartDate:
+          format: date-time
+          type: string
+        costChangesCount:
+          format: int32
+          type: integer
+        createDate:
+          format: date-time
+          type: string
+        createNotes:
+          type: string
+        customerSignatureCapture:
+          $ref: "#/components/schemas/ReferenceLink"
+        salesForceDefaultOppType:
+          type: string
+        salesForceDefaultPriceList:
+          type: string
+        salesForceDefaultRecurringTermType:
+          type: string
+        defaultReportList:
+          type: string
+        defaultSuccessListProfile:
+          type: string
+        defaultTermPeriods:
+          format: int32
+          type: integer
+        defaultVideoList:
+          type: string
+        deliveredDate:
+          format: date-time
+          type: string
+        discountAmount:
+          format: double
+          type: number
+        expectedCloseDate:
+          format: date-time
+          type: string
+        expirationDate:
+          format: date-time
+          type: string
+        externalReferenceQuoteDemandId:
+          type: string
+        greatAmericaDefaultRateCard:
+          type: string
+        grossMargin:
+          format: double
+          type: number
+        grossMarginAmount:
+          format: double
+          type: number
+        gst:
+          format: double
+          type: number
+        gstConverted:
+          format: double
+          type: number
+        htmlAgreement:
+          type: string
+        htmlNotes1:
+          type: string
+        htmlNotes2:
+          type: string
+        crmOpportunityId:
+          type: string
+        customer:
+          $ref: "#/components/schemas/ReferenceLink"
+        sourceCampaignId:
+          type: string
+        includeZeroSuggestedInDiscount:
+          type: boolean
+        insideRep:
+          type: string
+        invoicePostDate:
+          format: date-time
+          type: string
+        invoicePostStatus:
+          type: string
+        invoicePostUser:
+          type: string
+        isAccepted:
+          type: boolean
+        isArchive:
+          type: boolean
+        isLost:
+          type: boolean
+        isManagerApproved:
+          type: boolean
+        isQuoteDemand:
+          type: boolean
+        isSent:
+          type: boolean
+        isTaxCalculated:
+          type: boolean
+        orderPorterHasFirstVisitOccurred:
+          type: boolean
+        orderPorterIsUploaded:
+          type: boolean
+        isRequestQuote:
+          type: boolean
+        isRequestTemplate:
+          type: boolean
+        keywords:
+          type: string
+        locationId:
+          type: string
+        longDescription:
+          type: string
+        lostReason:
+          type: string
+        markup:
+          format: double
+          type: number
+        masterAgreement:
+          type: string
+        masterAgreementNumber:
+          type: string
+        modifyDate:
+          format: date-time
+          type: string
+        netMargin:
+          format: double
+          type: number
+        netSuiteSubsidiary:
+          type: string
+        optionalAmount:
+          format: double
+          type: number
+        optionalAmountConverted:
+          format: double
+          type: number
+        orderPorterSignedDate:
+          format: date-time
+          type: string
+        isOrderPorterApproved:
+          type: boolean
+        orderPorterDownPaymentMinimum:
+          format: double
+          type: number
+        orderPorterDownPaymentPercent:
+          format: double
+          type: number
+        orderPorterEmailSignature:
+          type: string
+        showOrderPorterESign:
+          type: boolean
+        orderPorterFilteredIp:
+          type: string
+        orderPorterFirstVisitDate:
+          format: date-time
+          type: string
+        orderPorterFullPaymentAllowed:
+          type: boolean
+        orderPorterGroup:
+          type: string
+        orderPorterInitialsSig:
+          type: string
+        orderPorterPasscode:
+          type: string
+        orderPorterPaymentMode:
+          type: string
+        orderPorterPreviewPicture:
+          $ref: "#/components/schemas/ReferenceLink"
+        orderPorterShowImage:
+          type: boolean
+        orderPorterShowItemOptionalCheckbox:
+          type: boolean
+        orderPorterShowLineDetails:
+          type: boolean
+        orderPorterShowQuantity:
+          type: boolean
+        orderPorterShowSignature:
+          type: boolean
+        orderPorterShowTabOptionalCheckbox:
+          type: boolean
+        orderPorterSignedIp:
+          type: string
+        orderPorterTemplate:
+          type: string
+        orderPorterTheme:
+          type: string
+        orderPorterVisits:
+          format: int32
+          type: integer
+        originalQuoteId:
+          type: string
+        overrideRate:
+          format: double
+          type: number
+        primaryRep:
+          type: string
+        printPackageHeaderPrice:
+          type: boolean
+        printPackageItemPrice:
+          type: boolean
+        showPackageHeader:
+          type: boolean
+        showPackageItems:
+          type: boolean
+        peerReviewDocument:
+          type: string
+        peerReviewStatus:
+          type: string
+        picture:
+          $ref: "#/components/schemas/ReferenceLink"
+        probability:
+          format: double
+          type: number
+        promiseDate:
+          format: date-time
+          type: string
+        promiseDateChangesCount:
+          format: int32
+          type: integer
+        pst:
+          format: double
+          type: number
+        pstConverted:
+          format: double
+          type: number
+        publishNumber:
+          format: int32
+          type: integer
+        purchaseOrderNumber:
+          type: string
+        quickbooksTemplate:
+          type: string
+        quoteCost:
+          format: double
+          type: number
+        quoteCreator:
+          type: string
+        quoteNotes:
+          type: string
+        quotePreface:
+          type: string
+        quoteTotal:
+          format: double
+          type: number
+        quoteType:
+          type: string
+        quoteStatus:
+          type: string
+        recurringCost:
+          format: double
+          type: number
+        recurringDiscountAmount:
+          format: double
+          type: number
+        recurringGst:
+          format: double
+          type: number
+        recurringOptionalAmount:
+          format: double
+          type: number
+        recurringPst:
+          format: double
+          type: number
+        recurringSubtotal:
+          format: double
+          type: number
+        recurringSuggestedDiscountAmount:
+          format: double
+          type: number
+        recurringSuggestedTotal:
+          format: double
+          type: number
+        recurringTax:
+          format: double
+          type: number
+        recurringTotal:
+          format: double
+          type: number
+        requestDate:
+          format: date-time
+          type: string
+        requestId:
+          type: string
+        requestedBy:
+          type: string
+        requiresApproval:
+          type: boolean
+        requiresNameChange:
+          type: boolean
+        forceManagerApprovalScript:
+          type: boolean
+        selectedTermsTotal:
+          format: double
+          type: number
+        shippingSubtotal:
+          format: double
+          type: number
+        shippingTax:
+          format: double
+          type: number
+        shortDescription:
+          type: string
+        subtotal:
+          format: double
+          type: number
+        subtotalConverted:
+          format: double
+          type: number
+        isSuccessListDisabled:
+          type: boolean
+        suggestedDiscountAmount:
+          format: double
+          type: number
+        suggestedTotal:
+          format: double
+          type: number
+        targetDate:
+          format: date-time
+          type: string
+        tax:
+          format: double
+          type: number
+        taxCode:
+          type: string
+        taxRate:
+          format: double
+          type: number
+        termsAndConditions:
+          type: string
+        versionComment:
+          type: string
+        autoTaskQuoteNumber:
+          type: string
+        winForm:
+          type: string
+        wonOrLostDate:
+          format: date-time
+          type: string
+        zCustomQuoteBool1:
+          type: boolean
+        zCustomQuoteBool10:
+          type: boolean
+        zCustomQuoteBool2:
+          type: boolean
+        zCustomQuoteBool3:
+          type: boolean
+        zCustomQuoteBool4:
+          type: boolean
+        zCustomQuoteBool5:
+          type: boolean
+        zCustomQuoteBool6:
+          type: boolean
+        zCustomQuoteBool7:
+          type: boolean
+        zCustomQuoteBool8:
+          type: boolean
+        zCustomQuoteBool9:
+          type: boolean
+        zCustomQuoteDate1:
+          format: date-time
+          type: string
+        zCustomQuoteDate2:
+          format: date-time
+          type: string
+        zCustomQuoteDecimal1:
+          format: double
+          type: number
+        zCustomQuoteDecimal10:
+          format: double
+          type: number
+        zCustomQuoteDecimal11:
+          format: double
+          type: number
+        zCustomQuoteDecimal12:
+          format: double
+          type: number
+        zCustomQuoteDecimal13:
+          format: double
+          type: number
+        zCustomQuoteDecimal14:
+          format: double
+          type: number
+        zCustomQuoteDecimal15:
+          format: double
+          type: number
+        zCustomQuoteDecimal16:
+          format: double
+          type: number
+        zCustomQuoteDecimal17:
+          format: double
+          type: number
+        zCustomQuoteDecimal18:
+          format: double
+          type: number
+        zCustomQuoteDecimal19:
+          format: double
+          type: number
+        zCustomQuoteDecimal2:
+          format: double
+          type: number
+        zCustomQuoteDecimal20:
+          format: double
+          type: number
+        zCustomQuoteDecimal3:
+          format: double
+          type: number
+        zCustomQuoteDecimal4:
+          format: double
+          type: number
+        zCustomQuoteDecimal5:
+          format: double
+          type: number
+        zCustomQuoteDecimal6:
+          format: double
+          type: number
+        zCustomQuoteDecimal7:
+          format: double
+          type: number
+        zCustomQuoteDecimal8:
+          format: double
+          type: number
+        zCustomQuoteDecimal9:
+          format: double
+          type: number
+        zCustomQuoteString1:
+          type: string
+        zCustomQuoteString10:
+          type: string
+        zCustomQuoteString11:
+          type: string
+        zCustomQuoteString12:
+          type: string
+        zCustomQuoteString13:
+          type: string
+        zCustomQuoteString14:
+          type: string
+        zCustomQuoteString15:
+          type: string
+        zCustomQuoteString2:
+          type: string
+        zCustomQuoteString3:
+          type: string
+        zCustomQuoteString4:
+          type: string
+        zCustomQuoteString5:
+          type: string
+        zCustomQuoteString6:
+          type: string
+        zCustomQuoteString7:
+          type: string
+        zCustomQuoteString8:
+          type: string
+        zCustomQuoteString9:
+          type: string
+      type: object
+    JsonPatchDocument[QuoteView]:
+      example:
+      - value: New Value
+        path: /property
+        op: replace
+      - value: New Value
+        path: /property
+        op: add
+      - path: /property
+        op: remove
+      properties:
+        operations:
+          description: This field is Read Only.
+          items:
+            $ref: "#/components/schemas/Operation[QuoteView]"
+          readOnly: true
+          type: array
+      type: object
+    Operation[QuoteView]:
+      properties:
+        value:
+          properties: {}
+          type: object
+        path:
+          type: string
+        op:
+          type: string
+        from:
+          type: string
+      type: object
+    QuoteTabsQueryModel:
+      properties:
+        showAllVersions:
+          description: Set true for results from deleted or archived quotes. Set false
+            to omit records from deleted or archive quotes. Defaults to true.
+          type: boolean
+        includeFields:
+          description: Comma separated list of fields to return.
+          type: string
+        conditions:
+          description: Conditional retrieve statements.
+          type: string
+        page:
+          description: Page of results to get. 1-index based.
+          format: int32
+          type: integer
+        pageSize:
+          description: "Page size of results to get. Max size 1000, default 50."
+          format: int32
+          type: integer
+      type: object
+    QuoteTabView:
+      example:
+        recurringSuggestedDiscountAmount: 7.740351818741173
+        optionalSubtotal: 9.018348186070783
+        canDeleteTab: true
+        discount: 1.4658129805029452
+        discountAmount: 5.962133916683182
+        gst: 1.1730742509559433
+        tabNumber: 1
+        taxConverted: 7.933506881737151
+        zCustomTabString11: zCustomTabString11
+        zCustomTabString10: zCustomTabString10
+        zCustomTabString13: zCustomTabString13
+        zCustomTabString12: zCustomTabString12
+        zCustomTabString15: zCustomTabString15
+        zCustomTabString14: zCustomTabString14
+        quote:
+          _info:
+            key: _info
+          name: name
+          id: id
+        isTabTemplate: true
+        productSearchFormConfiguration: productSearchFormConfiguration
+        isTargetListDiscount: true
+        price: 6.965117697638846
+        recurringTargetPriceControlValue: 7.04836565559697
+        id: id
+        recurringNetMargin: 7.058770351582356
+        zCustomTabDecimal10: 6.073898085781152
+        canAddItems: true
+        netMargin: 9.965781217890562
+        oppRecurringAsAdjustment: true
+        approvalContentHash: approvalContentHash
+        isPrinted: true
+        tabTotalConverted: 7.260521264802104
+        hideMfp: true
+        subtotal: 4.078845849666752
+        groupRunningCost: 9.301444243932576
+        connectWiseType: connectWiseType
+        isShippingTab: true
+        netSuiteType: netSuiteType
+        canChangePrice: true
+        idRecurringRevenue: idRecurringRevenue
+        isTotalsIncluded: true
+        optionalAmount: 9.369310271410669
+        groupRunningTax: 6.84685269835264
+        ignorePackageHeaderOnOpportunities: true
+        recurringOptionalSubtotal: 6.519180951018382
+        cwForecastId: 6
+        recurringLabel: recurringLabel
+        invoiceRouting: invoiceRouting
+        connectWiseIntegratorOverride: connectWiseIntegratorOverride
+        recurringCost: 6.778324963048013
+        periods: 3
+        audio: audio
+        quickBooksType: quickBooksType
+        recurringMarkup: 0.8851374739011653
+        isGroupQuantityMaster: true
+        recurringIsTaxable: 7.143538047012306
+        targetMarkup: 9.702963800023566
+        isSourcingExempt: true
+        goToProductSearchWhenTabIsEmpty: true
+        htmlNotes: htmlNotes
+        zCustomTabDate2: 2000-01-23T04:56:07.000+00:00
+        tabGroup: tabGroup
+        zCustomTabDate1: 2000-01-23T04:56:07.000+00:00
+        hasLimitOnNewItems: true
+        gstConverted: 4.965218492984954
+        isTargetMarkup: true
+        canChangeTabName: true
+        disableAutoEtilizeSourcing: true
+        oppConvertRouting: oppConvertRouting
+        zCustomTabBool1: true
+        zCustomTabBool2: true
+        groupRunningTotal: 7.457744773683766
+        zCustomTabBool3: true
+        tabIdentifier: tabIdentifier
+        groupRunningRecurringTotal: 1.0246457001441578
+        groupRunningSubtotal: 1.4894159098541704
+        recurringPst: 4.652396432933246
+        optionalTax: 6.438423552598547
+        targetDiscount: 9.132027271330688
+        recurringDiscountAmount: 5.944895607614016
+        pstConverted: 2.8841621266687802
+        configId: configId
+        rtfNotes: rtfNotes
+        tabSheetHtml4: tabSheetHtml4
+        tabSheetHtml3: tabSheetHtml3
+        tabSheetHtml2: tabSheetHtml2
+        tabSheetHtml1: tabSheetHtml1
+        groupRunningRecurringOptionAmount: 4.145608029883936
+        grossMarginAmount: 7.061401241503109
+        markup: 5.025004791520295
+        pageBreak: true
+        contractStartDate: 2000-01-23T04:56:07.000+00:00
+        tax: 0.5199002018724985
+        groupRunningRecurringSubtotal: 7.386281948385884
+        isOptional: true
+        taxCode: taxCode
+        tabColor: tabColor
+        recurringTargetPriceControlType: 3
+        orderPorterGroup: orderPorterGroup
+        taxRate: 5.507386964179881
+        groupRunningRecurringTax: 1.2315135367772556
+        isTargetDiscount: true
+        groupRunningOptionAmount: 3.616076749251911
+        forceZeroQuantity: true
+        recurringTax: 5.533258397034986
+        orderPorterRequired: true
+        name: name
+        zCustomTabBool4: true
+        zCustomTabBool5: true
+        zCustomTabBool6: true
+        productSearchPrefillMappingSet: productSearchPrefillMappingSet
+        targetSheet1: targetSheet1
+        zCustomTabBool7: true
+        approvalOnChange: true
+        targetSheet2: targetSheet2
+        zCustomTabBool8: true
+        suggestedDiscountAmount: 6.628464275087742
+        targetSheet3: targetSheet3
+        zCustomTabBool9: true
+        targetSheet4: targetSheet4
+        connectWiseOpInclude: true
+        targetSheet5: targetSheet5
+        longDescription: longDescription
+        zCustomTabString4: zCustomTabString4
+        zCustomTabString3: zCustomTabString3
+        zCustomTabString6: zCustomTabString6
+        zCustomTabBool10: true
+        zCustomTabString5: zCustomTabString5
+        zCustomTabString8: zCustomTabString8
+        zCustomTabString7: zCustomTabString7
+        zCustomTabString9: zCustomTabString9
+        gridFormat: gridFormat
+        isProtectedTab: true
+        groupRunningRecurringCost: 2.027123023002322
+        zCustomTabString2: zCustomTabString2
+        optionalRecurring: 8.762042012749001
+        recurringSubtotal: 8.969578798196912
+        zCustomTabString1: zCustomTabString1
+        pst: 1.284659006116532
+        recurringGst: 3.0937452626664474
+        tabNotes: tabNotes
+        recurringGrossMarginAmount: 3.353193347011243
+        recurringDiscount: 6.878052220127876
+        recurringTotal: 3.2588565619047607
+        recurringSuggestedTotal: 3.0205796992916243
+        primarySourceGroup: primarySourceGroup
+        showLineItemQuickFilter: true
+        owner: owner
+        targetMargin: 0.8774076871421566
+        tabDescription: tabDescription
+        zCustomTabDecimal2: 8.251625748923757
+        cost: 0.8008281904610115
+        tabSheetHtml5: tabSheetHtml5
+        zCustomTabDecimal1: 4.86315908102884
+        zCustomTabDecimal4: 3.901545264248647
+        zCustomTabDecimal3: 4.459605034958679
+        forceOpportunityItems: true
+        layoutGroup: layoutGroup
+        zCustomTabDecimal6: 2.9409642974827896
+        recurringGrossMargin: 6.704019297950036
+        zCustomTabDecimal5: 0.43431398824148815
+        contractEndDate: 2000-01-23T04:56:07.000+00:00
+        isTaxable: true
+        discountAmountConverted: 5.637376656633329
+        recurringOptionalTax: 0.10263654006109402
+        subtotalConverted: 0.2025324113236393
+        optionalAmountConverted: 6.683562403749608
+        isHidden: true
+        suggestedTotal: 4.258773108174356
+        canDeleteItems: true
+        cwForceTabForecast: true
+        isTargetMargin: true
+        dynamicGpProfileId: dynamicGpProfileId
+        zCustomTabDecimal8: 8.28965939814297
+        zCustomTabDecimal7: 1.7325933120207193
+        grossMargin: 2.3021358869347655
+        zCustomTabDecimal9: 6.623518433804886
+        tabTotal: 4.678947989005849
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        approvalContentHash:
+          type: string
+        approvalOnChange:
+          type: boolean
+        audio:
+          format: byte
+          pattern: "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+          type: string
+        canAddItems:
+          type: boolean
+        canChangePrice:
+          type: boolean
+        canChangeTabName:
+          type: boolean
+        canDeleteItems:
+          type: boolean
+        canDeleteTab:
+          type: boolean
+        configId:
+          type: string
+        connectWiseIntegratorOverride:
+          type: string
+        connectWiseOpInclude:
+          type: boolean
+        connectWiseType:
+          type: string
+        contractEndDate:
+          format: date-time
+          type: string
+        contractStartDate:
+          format: date-time
+          type: string
+        cost:
+          format: double
+          type: number
+        cwForceTabForecast:
+          type: boolean
+        cwForecastId:
+          format: int32
+          type: integer
+        disableAutoEtilizeSourcing:
+          type: boolean
+        discount:
+          format: double
+          type: number
+        discountAmount:
+          format: double
+          type: number
+        discountAmountConverted:
+          format: double
+          type: number
+        dynamicGpProfileId:
+          type: string
+        forceOpportunityItems:
+          type: boolean
+        forceZeroQuantity:
+          type: boolean
+        goToProductSearchWhenTabIsEmpty:
+          type: boolean
+        gridFormat:
+          type: string
+        grossMargin:
+          format: double
+          type: number
+        grossMarginAmount:
+          format: double
+          type: number
+        groupRunningCost:
+          format: double
+          type: number
+        groupRunningOptionAmount:
+          format: double
+          type: number
+        groupRunningRecurringCost:
+          format: double
+          type: number
+        groupRunningRecurringOptionAmount:
+          format: double
+          type: number
+        groupRunningRecurringSubtotal:
+          format: double
+          type: number
+        groupRunningRecurringTax:
+          format: double
+          type: number
+        groupRunningRecurringTotal:
+          format: double
+          type: number
+        groupRunningSubtotal:
+          format: double
+          type: number
+        groupRunningTax:
+          format: double
+          type: number
+        groupRunningTotal:
+          format: double
+          type: number
+        gst:
+          format: double
+          type: number
+        gstConverted:
+          format: double
+          type: number
+        hasLimitOnNewItems:
+          type: boolean
+        hideMfp:
+          type: boolean
+        htmlNotes:
+          type: string
+        idRecurringRevenue:
+          type: string
+        ignorePackageHeaderOnOpportunities:
+          type: boolean
+        invoiceRouting:
+          type: string
+        isGroupQuantityMaster:
+          type: boolean
+        isHidden:
+          type: boolean
+        isOptional:
+          type: boolean
+        isPrinted:
+          type: boolean
+        isProtectedTab:
+          type: boolean
+        isShippingTab:
+          type: boolean
+        isSourcingExempt:
+          type: boolean
+        isTabTemplate:
+          type: boolean
+        isTargetDiscount:
+          type: boolean
+        isTargetListDiscount:
+          type: boolean
+        isTargetMargin:
+          type: boolean
+        isTargetMarkup:
+          type: boolean
+        isTaxable:
+          type: boolean
+        isTotalsIncluded:
+          type: boolean
+        layoutGroup:
+          type: string
+        longDescription:
+          type: string
+        markup:
+          format: double
+          type: number
+        netMargin:
+          format: double
+          type: number
+        netSuiteType:
+          type: string
+        oppConvertRouting:
+          type: string
+        oppRecurringAsAdjustment:
+          type: boolean
+        optionalAmount:
+          format: double
+          type: number
+        optionalAmountConverted:
+          format: double
+          type: number
+        optionalRecurring:
+          format: double
+          type: number
+        optionalSubtotal:
+          format: double
+          type: number
+        optionalTax:
+          format: double
+          type: number
+        orderPorterGroup:
+          type: string
+        orderPorterRequired:
+          type: boolean
+        owner:
+          type: string
+        pageBreak:
+          type: boolean
+        periods:
+          format: int32
+          type: integer
+        price:
+          format: double
+          type: number
+        primarySourceGroup:
+          type: string
+        productSearchFormConfiguration:
+          type: string
+        productSearchPrefillMappingSet:
+          type: string
+        pst:
+          format: double
+          type: number
+        pstConverted:
+          format: double
+          type: number
+        quickBooksType:
+          type: string
+        quote:
+          $ref: "#/components/schemas/ReferenceLink"
+        recurringCost:
+          format: double
+          type: number
+        recurringDiscount:
+          format: double
+          type: number
+        recurringDiscountAmount:
+          format: double
+          type: number
+        recurringGrossMargin:
+          format: double
+          type: number
+        recurringGrossMarginAmount:
+          format: double
+          type: number
+        recurringGst:
+          format: double
+          type: number
+        recurringIsTaxable:
+          format: double
+          type: number
+        recurringLabel:
+          type: string
+        recurringMarkup:
+          format: double
+          type: number
+        recurringNetMargin:
+          format: double
+          type: number
+        recurringOptionalSubtotal:
+          format: double
+          type: number
+        recurringOptionalTax:
+          format: double
+          type: number
+        recurringPst:
+          format: double
+          type: number
+        recurringSubtotal:
+          format: double
+          type: number
+        recurringSuggestedDiscountAmount:
+          format: double
+          type: number
+        recurringSuggestedTotal:
+          format: double
+          type: number
+        recurringTargetPriceControlType:
+          format: int32
+          type: integer
+        recurringTargetPriceControlValue:
+          format: double
+          type: number
+        recurringTax:
+          format: double
+          type: number
+        recurringTotal:
+          format: double
+          type: number
+        rtfNotes:
+          type: string
+        showLineItemQuickFilter:
+          type: boolean
+        subtotal:
+          format: double
+          type: number
+        subtotalConverted:
+          format: double
+          type: number
+        suggestedDiscountAmount:
+          format: double
+          type: number
+        suggestedTotal:
+          format: double
+          type: number
+        tabColor:
+          type: string
+        tabDescription:
+          type: string
+        tabGroup:
+          type: string
+        tabIdentifier:
+          type: string
+        tabNotes:
+          type: string
+        tabNumber:
+          format: int32
+          type: integer
+        tabSheetHtml1:
+          type: string
+        tabSheetHtml2:
+          type: string
+        tabSheetHtml3:
+          type: string
+        tabSheetHtml4:
+          type: string
+        tabSheetHtml5:
+          type: string
+        tabTotal:
+          format: double
+          type: number
+        tabTotalConverted:
+          format: double
+          type: number
+        targetDiscount:
+          format: double
+          type: number
+        targetMargin:
+          format: double
+          type: number
+        targetMarkup:
+          format: double
+          type: number
+        targetSheet1:
+          type: string
+        targetSheet2:
+          type: string
+        targetSheet3:
+          type: string
+        targetSheet4:
+          type: string
+        targetSheet5:
+          type: string
+        tax:
+          format: double
+          type: number
+        taxCode:
+          type: string
+        taxConverted:
+          format: double
+          type: number
+        taxRate:
+          format: double
+          type: number
+        zCustomTabBool1:
+          type: boolean
+        zCustomTabBool10:
+          type: boolean
+        zCustomTabBool2:
+          type: boolean
+        zCustomTabBool3:
+          type: boolean
+        zCustomTabBool4:
+          type: boolean
+        zCustomTabBool5:
+          type: boolean
+        zCustomTabBool6:
+          type: boolean
+        zCustomTabBool7:
+          type: boolean
+        zCustomTabBool8:
+          type: boolean
+        zCustomTabBool9:
+          type: boolean
+        zCustomTabDate1:
+          format: date-time
+          type: string
+        zCustomTabDate2:
+          format: date-time
+          type: string
+        zCustomTabDecimal1:
+          format: double
+          type: number
+        zCustomTabDecimal10:
+          format: double
+          type: number
+        zCustomTabDecimal2:
+          format: double
+          type: number
+        zCustomTabDecimal3:
+          format: double
+          type: number
+        zCustomTabDecimal4:
+          format: double
+          type: number
+        zCustomTabDecimal5:
+          format: double
+          type: number
+        zCustomTabDecimal6:
+          format: double
+          type: number
+        zCustomTabDecimal7:
+          format: double
+          type: number
+        zCustomTabDecimal8:
+          format: double
+          type: number
+        zCustomTabDecimal9:
+          format: double
+          type: number
+        zCustomTabString1:
+          type: string
+        zCustomTabString10:
+          type: string
+        zCustomTabString11:
+          type: string
+        zCustomTabString12:
+          type: string
+        zCustomTabString13:
+          type: string
+        zCustomTabString14:
+          type: string
+        zCustomTabString15:
+          type: string
+        zCustomTabString2:
+          type: string
+        zCustomTabString3:
+          type: string
+        zCustomTabString4:
+          type: string
+        zCustomTabString5:
+          type: string
+        zCustomTabString6:
+          type: string
+        zCustomTabString7:
+          type: string
+        zCustomTabString8:
+          type: string
+        zCustomTabString9:
+          type: string
+      type: object
+    QuoteTermsQueryModel:
+      properties:
+        includeFields:
+          description: Comma separated list of fields to return.
+          type: string
+        conditions:
+          description: Conditional retrieve statements.
+          type: string
+        page:
+          description: Page of results to get. 1-index based.
+          format: int32
+          type: integer
+        pageSize:
+          description: "Page size of results to get. Max size 1000, default 50."
+          format: int32
+          type: integer
+      type: object
+    QuoteTermView:
+      example:
+        agreementType: agreementType
+        discountAmount: 5.962133916683182
+        recurringBeforeDiscount: 7.386281948385884
+        obeyStandardTabFilters: true
+        recurringDiscountAmount: 3.616076749251911
+        leaseMonthlyAmount: 8.762042012749001
+        leaseRateCardNumber: leaseRateCardNumber
+        downPayment: 1.4658129805029452
+        periodPaymentAmount: 9.301444243932576
+        startDateMode: startDateMode
+        id: id
+        idLeasingRates: idLeasingRates
+        idQuote: idQuote
+        leasingRateOverride: 6.683562403749608
+        spreadOneTime: true
+        tabName: tabName
+        agreementStartDateDefault: agreementStartDateDefault
+        groupSort: 1.2315135367772556
+        recurringTotalAmount: 4.145608029883936
+        oppRecurringAsAdjustment: true
+        isPrinted: true
+        authorizeNetIntervalUnit: authorizeNetIntervalUnit
+        totalAmount: 2.3021358869347655
+        periodInterval: periodInterval
+        recurringPeriods: 7.457744773683766
+        recurringDiscountPercent: 2.027123023002322
+        forceExcludeInForecast: true
+        name: name
+        authorizeNetIntervalLength: 4
+        leasingName: leasingName
+        intervalToStart: 9
+        idRecurringRevenue: idRecurringRevenue
+        isAutomaticallyBillable: true
+        leaseSource: leaseSource
+        totalAmountOverride: 1.4894159098541704
+        description: description
+        recurringTotalAmountOverride: 6.84685269835264
+        principal: 7.061401241503109
+        leaseType: leaseType
+        leaseTypeDescription: leaseTypeDescription
+        recurringCost: 3.5571952270680973
+        isSelected: true
+        periods: 0.8008281904610115
+        isLease: true
+        leaseDownPayment: 9.018348186070783
+        isRoundedPayments: true
+        interestRate: 6.027456183070403
+        financingGroup: financingGroup
+        discountPercent: 5.637376656633329
+        cost: 6.438423552598547
+        recurringTotalAggregated: 1.1730742509559433
+        leasingRate: 9.369310271410669
+        tabIncludeFilter: tabIncludeFilter
+        forceIncludeInForecast: true
+        tabGroup: tabGroup
+        subscriptionName: subscriptionName
+        tabExcludeFilter: tabExcludeFilter
+        overrideStartDate: 2000-01-23T04:56:07.000+00:00
+        recurringRevenueLabel: recurringRevenueLabel
+        nameSort: 1.0246457001441578
+        authorizeNetTotalOccurances: 5
+      properties:
+        id:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        idQuote:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        periods:
+          format: double
+          type: number
+        interestRate:
+          format: double
+          type: number
+        downPayment:
+          format: double
+          type: number
+        discountAmount:
+          format: double
+          type: number
+        discountPercent:
+          format: double
+          type: number
+        totalAmount:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        principal:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        periodPaymentAmount:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        periodInterval:
+          type: string
+        isSelected:
+          type: boolean
+        recurringDiscountAmount:
+          format: double
+          type: number
+        recurringDiscountPercent:
+          format: double
+          type: number
+        recurringTotalAmount:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        financingGroup:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        recurringBeforeDiscount:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        tabGroup:
+          type: string
+        groupSort:
+          format: double
+          type: number
+        nameSort:
+          format: double
+          type: number
+        tabName:
+          type: string
+        totalAmountOverride:
+          format: double
+          type: number
+        recurringTotalAmountOverride:
+          format: double
+          type: number
+        idRecurringRevenue:
+          type: string
+        recurringPeriods:
+          format: double
+          type: number
+        recurringTotalAggregated:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        subscriptionName:
+          type: string
+        isAutomaticallyBillable:
+          type: boolean
+        overrideStartDate:
+          format: date-time
+          type: string
+        startDateMode:
+          type: string
+        authorizeNetIntervalUnit:
+          type: string
+        authorizeNetIntervalLength:
+          format: int32
+          type: integer
+        authorizeNetTotalOccurances:
+          format: int32
+          type: integer
+        intervalToStart:
+          format: int32
+          type: integer
+        oppRecurringAsAdjustment:
+          type: boolean
+        spreadOneTime:
+          type: boolean
+        isPrinted:
+          type: boolean
+        recurringRevenueLabel:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        tabExcludeFilter:
+          type: string
+        tabIncludeFilter:
+          type: string
+        isRoundedPayments:
+          type: boolean
+        obeyStandardTabFilters:
+          type: boolean
+        leasingName:
+          type: string
+        leasingRate:
+          format: double
+          type: number
+        leasingRateOverride:
+          format: double
+          type: number
+        isLease:
+          type: boolean
+        leaseMonthlyAmount:
+          format: double
+          type: number
+        leaseDownPayment:
+          format: double
+          type: number
+        idLeasingRates:
+          type: string
+        leaseSource:
+          type: string
+        leaseType:
+          type: string
+        leaseTypeDescription:
+          type: string
+        leaseRateCardNumber:
+          type: string
+        forceIncludeInForecast:
+          type: boolean
+        forceExcludeInForecast:
+          type: boolean
+        cost:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        recurringCost:
+          description: This field is Read Only.
+          format: double
+          readOnly: true
+          type: number
+        agreementType:
+          type: string
+        agreementStartDateDefault:
+          type: string
+      type: object
+    JsonPatchDocument[QuoteTermView]:
+      example:
+      - value: New Value
+        path: /property
+        op: replace
+      - value: New Value
+        path: /property
+        op: add
+      - path: /property
+        op: remove
+      properties:
+        operations:
+          description: This field is Read Only.
+          items:
+            $ref: "#/components/schemas/Operation[QuoteTermView]"
+          readOnly: true
+          type: array
+      type: object
+    Operation[QuoteTermView]:
+      properties:
+        value:
+          properties: {}
+          type: object
+        path:
+          type: string
+        op:
+          type: string
+        from:
+          type: string
+      type: object
+    RecurringRevenuesQueryModel:
+      properties:
+        includeFields:
+          description: Comma separated list of fields to return.
+          type: string
+        conditions:
+          description: Conditional retrieve statements.
+          type: string
+        page:
+          description: Page of results to get. 1-index based.
+          format: int32
+          type: integer
+        pageSize:
+          description: "Page size of results to get. Max size 1000, default 50."
+          format: int32
+          type: integer
+      type: object
+    RecurringRevenueView:
+      example:
+        duration: 0
+        externalXref: externalXref
+        periodType: periodType
+        description: description
+        id: id
+        cycle: cycle
+      properties:
+        id:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        description:
+          type: string
+        periodType:
+          type: string
+        duration:
+          format: int32
+          type: integer
+        externalXref:
+          type: string
+        cycle:
+          type: string
+      type: object
+    ViewQueryModel:
+      properties:
+        includeFields:
+          description: Comma separated list of fields to return.
+          type: string
+        conditions:
+          description: Conditional retrieve statements.
+          type: string
+        page:
+          description: Page of results to get. 1-index based.
+          format: int32
+          type: integer
+        pageSize:
+          description: "Page size of results to get. Max size 1000, default 50."
+          format: int32
+          type: integer
+      type: object
+    TaxCodeView:
+      example:
+        gstRate: 6.027456183070403
+        taxRate: 0.8008281904610115
+        pstRate: 1.4658129805029452
+        taxExternalXref: taxExternalXref
+        isCalculatedExternally: true
+        id: id
+        taxCode: taxCode
+      properties:
+        id:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        taxCode:
+          type: string
+        taxRate:
+          format: double
+          type: number
+        gstRate:
+          format: double
+          type: number
+        pstRate:
+          format: double
+          type: number
+        taxExternalXref:
+          type: string
+        isCalculatedExternally:
+          type: boolean
+      type: object
+    UserQueryModel:
+      properties:
+        includeFields:
+          description: Comma separated list of fields to return.
+          type: string
+        conditions:
+          description: Conditional retrieve statements.
+          type: string
+        page:
+          description: Page of results to get. 1-index based.
+          format: int32
+          type: integer
+        pageSize:
+          description: "Page size of results to get. Max size 1000, default 50."
+          format: int32
+          type: integer
+      type: object
+    UserView:
+      example:
+        lastName: lastName
+        failedLoginCount: 0
+        isApiUser: true
+        alwaysRequireManagerApproval: true
+        jobTitle: jobTitle
+        electronicOrderUser: true
+        idProfileTeams: idProfileTeams
+        isManualWinner: true
+        canAccessAllQuotes: true
+        baseCurrency: baseCurrency
+        bccEmailAddresses: bccEmailAddresses
+        isApprover: true
+        emailAddress: emailAddress
+        locationId: locationId
+        approverUserId: approverUserId
+        oauthSubscriberId: oauthSubscriberId
+        id: id
+        isReadOnlyUser: true
+        isPriceChanger: true
+        isAdministrator: true
+        isContentManager: true
+        mobilePhoneNumber: mobilePhoneNumber
+        orderPorterEmailAddresses: orderPorterEmailAddresses
+        defaultSearchQuoteStatus: defaultSearchQuoteStatus
+        onBehalfUser: onBehalfUser
+        timeZone: timeZone
+        messengerId: messengerId
+        isStandardPlus: true
+        userName: userName
+        isDeveloper: true
+        isPublisher: true
+        firstName: firstName
+        phoneNumber: phoneNumber
+        invoiceRepId: invoiceRepId
+        managerUserId: managerUserId
+        isInactiveUser: true
+        userNotes: userNotes
+        quotePreface: quotePreface
+        presentedName: presentedName
+      properties:
+        id:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        isInactiveUser:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isReadOnlyUser:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        failedLoginCount:
+          description: This field is Read Only.
+          format: int32
+          readOnly: true
+          type: integer
+        isApprover:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isPriceChanger:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        canAccessAllQuotes:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isAdministrator:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isDeveloper:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isApiUser:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isContentManager:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isStandardPlus:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        alwaysRequireManagerApproval:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isPublisher:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        isManualWinner:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        electronicOrderUser:
+          description: This field is Read Only.
+          readOnly: true
+          type: boolean
+        idProfileTeams:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        locationId:
+          type: string
+        managerUserId:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        approverUserId:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        userName:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        presentedName:
+          type: string
+        jobTitle:
+          type: string
+        quotePreface:
+          type: string
+        userNotes:
+          type: string
+        baseCurrency:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+        phoneNumber:
+          type: string
+        mobilePhoneNumber:
+          type: string
+        emailAddress:
+          type: string
+        messengerId:
+          type: string
+        invoiceRepId:
+          type: string
+        timeZone:
+          type: string
+        orderPorterEmailAddresses:
+          type: string
+        onBehalfUser:
+          type: string
+        defaultSearchQuoteStatus:
+          type: string
+        bccEmailAddresses:
+          type: string
+        oauthSubscriberId:
+          description: This field is Read Only.
+          readOnly: true
+          type: string
+      type: object
+    JsonPatchDocument[UserView]:
+      example:
+      - value: New Value
+        path: /property
+        op: replace
+      - value: New Value
+        path: /property
+        op: add
+      - path: /property
+        op: remove
+      properties:
+        operations:
+          description: This field is Read Only.
+          items:
+            $ref: "#/components/schemas/Operation[UserView]"
+          readOnly: true
+          type: array
+      type: object
+    Operation[UserView]:
+      properties:
+        value:
+          properties: {}
+          type: object
+        path:
+          type: string
+        op:
+          type: string
+        from:
+          type: string
+      type: object
+  securitySchemes:
+    basic:
+      description: "< p > Authentication is similar to Manage, using Basic Authorization.\
+        \ Each request needs to pass an Authorization header that is a Base64 encoded\
+        \ username:password, where username is a combination of AccessKey+SellAPIUsername\
+        \ and password is password. (Full Authorization header would be \"accesskey+username:password\"\
+        ). Your accesskey can be found by logging into Sell and checking the parameters\
+        \ listed in the URL.</p> <p><blockquote>The user must be an API user.</blockquote></p>\
+        \ <p><b>C# Sample</b></p> <p><code> string auth = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(accessKey\
+        \ + \"+\" + SellAPIUsername + \":\" + sellPassword)); </p><p>client.Headers.Add(\"\
+        Authorization:basic \" + auth);</code></p>"
+      scheme: basic
+      type: http
+x-original-swagger-version: "2.0"
